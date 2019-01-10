@@ -7,8 +7,9 @@ import connection from '../helpers/data/connection';
 
 import Auth from '../components/Auth/Auth';
 import './App.scss';
+import MyNavBar from '../components/MyNavbar/MyNavbar';
 
-// import authRequests from '../helpers/data/authRequests';
+import authRequests from '../helpers/data/authRequests';
 
 class App extends React.Component {
   state ={
@@ -40,17 +41,22 @@ class App extends React.Component {
 
   render() {
     const { authed } = this.state;
+    const logoutClickEvent = () => {
+      authRequests.logoutUser();
+      this.setState({ authed: false });
+    };
 
     if (!authed) {
       return (
         <div className="App">
-          {/* <MyNavBar isAuthed={authed} logoutClickEvent={logoutClickEvent}/> */}
+          <MyNavBar isAuthed={authed} logoutClickEvent={logoutClickEvent}/>
           <Auth isAuthenticated={this.isAuthenticated} />
         </div>
       );
     }
     return (
       <div className="App">
+      <MyNavBar isAuthed={authed} logoutClickEvent={logoutClickEvent}/>
       You are authenticated.
       </div>
     );
